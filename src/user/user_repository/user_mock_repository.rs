@@ -6,11 +6,17 @@ use crate::user::{
 
 pub struct UserMockRepository {
     found_user: bool,
+    email: String,
+    username: String,
 }
 
 impl UserMockRepository {
-    pub fn new(found_user: bool) -> Self {
-        return Self { found_user };
+    pub fn new(found_user: bool, email: String, username: String) -> Self {
+        return Self {
+            found_user,
+            email,
+            username,
+        };
     }
 }
 
@@ -18,10 +24,10 @@ impl UserRepository for UserMockRepository {
     fn get(&self) -> GetUserResult {
         if self.found_user {
             return GetUserResult::User(User::create_from_new_user(NewUser {
-                email: String::from("mocked@email.com"),
-                username: String::from("MOCK"),
+                email: self.email.to_owned(),
+                username: self.username.to_owned(),
             }));
         }
-        return GetUserResult::UserNotExist;
+        return GetUserResult::UserNotFound;
     }
 }

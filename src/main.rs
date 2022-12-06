@@ -11,11 +11,17 @@ use user::{
     },
 };
 
+mod settings;
+mod tests;
 mod user;
 
 fn main() {
     let found_user: bool = true;
-    let user_repository: Box<dyn UserRepository> = Box::new(UserMockRepository::new(found_user));
+    let user_repository: Box<dyn UserRepository> = Box::new(UserMockRepository::new(
+        found_user,
+        String::from("mocked@email.com"),
+        String::from("MOCK"),
+    ));
     let user_controller: UserController = UserController::create(user_repository);
     let user_result: GetUserResult = user_controller.get();
     match user_result {
@@ -24,7 +30,7 @@ fn main() {
             user.get_username(),
             user.get_email()
         ),
-        GetUserResult::UserNotExist => println!("user not exist"),
+        GetUserResult::UserNotFound => println!("user not exist"),
     }
 }
 

@@ -10,7 +10,7 @@
             "name": "Debug",
             // "program": "${fileDirname}/../target/debug/${fileBasenameNoExtension}",
             "preLaunchTask": "rust: cargo build",
-            "program": "${fileDirname}/../target/debug/${workspaceFolderBasename}",
+            "program": "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
             "args": [],
             "cwd": "${workspaceRoot}",
             "sourceLanguages": [
